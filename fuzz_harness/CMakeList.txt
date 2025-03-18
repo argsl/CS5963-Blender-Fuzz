@@ -1,0 +1,81 @@
+cmake_minimum_required(VERSION 3.16)
+
+# Define the fuzz_harness executable
+add_executable(fuzz_harness fuzz_harness.cpp)
+
+# Link only the necessary Blender libraries
+target_link_libraries(fuzz_harness PRIVATE
+    bf_blenloader
+    bf_blenlib
+    bf_dna
+    bf_intern_guardedalloc
+    bf_blenkernel
+    bf_windowmanager
+    bf_nodes
+    bf_nodes_function
+    bf_nodes_geometry
+    bf_nodes_shader
+    bf_nodes_texture
+    bf_compositor
+    bf_shader_fx
+    bf_gpu
+    bf_imbuf
+    bf_imbuf_movie
+    bf_imbuf_openimageio
+    bf_modifiers
+    bf_python
+    bf_python_bmesh
+    bf_python_ext
+    bf_python_gpu
+    bf_python_mathutils
+    bf_render
+    bf_sequencer
+    bf_blentranslation
+    bf_blenfont
+    bf_animrig
+    bf_asset_system
+    bf_bmesh
+    bf_depsgraph
+    bf_geometry
+    bf_simulation
+    bf_editor_datafiles
+    bf_editor_id_management
+    bf_editor_io
+    bf_editor_interface
+    bf_editor_util
+    bf_editor_space_view3d
+    bf_ikplugin
+    bf_intern_atomic
+    bf_intern_clog
+    bf_intern_eigen
+    bf_intern_libc_compat
+    bf_intern_libmv
+    bf_intern_mikktspace
+    bf_intern_opencolorio
+    bf_intern_opensubdiv
+    bf_intern_sky
+    bf_intern_wayland_dynload
+    atomic
+)
+
+# Include directories for Blender headers
+target_include_directories(fuzz_harness PRIVATE
+    ${CMAKE_SOURCE_DIR}/source
+    ${CMAKE_SOURCE_DIR}/source/blender
+    ${CMAKE_SOURCE_DIR}/source/blender/blenlib
+    ${CMAKE_SOURCE_DIR}/source/blender/blenkernel
+    ${CMAKE_SOURCE_DIR}/source/blender/blenloader
+    ${CMAKE_SOURCE_DIR}/source/blender/blentranslation
+    ${CMAKE_SOURCE_DIR}/source/blender/depsgraph
+    ${CMAKE_SOURCE_DIR}/source/blender/editors
+    ${CMAKE_SOURCE_DIR}/source/blender/editors/include
+    ${CMAKE_SOURCE_DIR}/source/blender/geometry
+    ${CMAKE_SOURCE_DIR}/source/blender/gpu
+    ${CMAKE_SOURCE_DIR}/source/blender/imbuf
+    ${CMAKE_SOURCE_DIR}/source/blender/makesdna
+    ${CMAKE_SOURCE_DIR}/source/blender/makesrna
+
+)
+
+# Ensure dependencies are built before fuzz_harness
+add_dependencies(fuzz_harness blender)
